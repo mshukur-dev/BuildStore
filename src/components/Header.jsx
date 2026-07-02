@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
 
 const Header = () => {
-  return (
-    <div>Header</div>
-  )
-}
+    return (
+        <header>
+            <div className="max-w-[1620px] mx-auto ">
+              
+            </div>
+        </header>
+    );
+};
 
-export default Header
+export default Header;
