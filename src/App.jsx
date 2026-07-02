@@ -10,7 +10,7 @@ import {
 import CssBaseline from "@mui/material/CssBaseline";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { Contact, Home } from "./router/router";
+import { Contact, Delivery, Home, Payment } from "./router/router";
 import Layout from "./layout/Layout";
 
 const theme = createTheme({
@@ -71,10 +71,26 @@ function App() {
                     ),
                 },
                 {
-                    path: "/contact",
+                    path: "/contacts",
                     element: (
                         <Suspense fallback={loaderFallback}>
                             <Contact />
+                        </Suspense>
+                    ),
+                },
+                {
+                    path: "/delivery",
+                    element: (
+                        <Suspense fallback={loaderFallback}>
+                            <Delivery />
+                        </Suspense>
+                    ),
+                },
+                {
+                    path: "/payment",
+                    element: (
+                        <Suspense fallback={loaderFallback}>
+                            <Payment />
                         </Suspense>
                     ),
                 },

@@ -22,10 +22,10 @@ export default function Footer() {
         <Box
             component="footer"
             sx={{
-                bgcolor: "#1E2126", // Темный цвет фона как на макете
+                bgcolor: "#1E2126",
                 color: "#ffffff",
-                pt: { xs: 4, md: 6 },
-                pb: 3,
+                pt: { xs: 4, md: 12 },
+                pb: 8,
                 fontFamily: "sans-serif",
             }}
         >
@@ -35,7 +35,6 @@ export default function Footer() {
                     spacing={{ xs: 4, md: 2 }}
                     justifyContent="space-between"
                 >
-                    {/* Блок 1: Логотип и контакты */}
                     <Grid size={{ xs: 12, md: 3.5 }}>
                         <Stack
                             spacing={2}
@@ -49,7 +48,6 @@ export default function Footer() {
                                 },
                             }}
                         >
-                            {/* Логотип */}
                             <Stack
                                 direction="row"
                                 spacing={1}
@@ -58,7 +56,6 @@ export default function Footer() {
                                 <img src={logo} alt="logo" />
                             </Stack>
 
-                            {/* Телефон и Email */}
                             <Box sx={{ mt: 1 }}>
                                 <Typography
                                     variant="body1"
@@ -81,7 +78,6 @@ export default function Footer() {
                                 </Typography>
                             </Box>
 
-                            {/* Соцсети */}
                             <Stack direction="row" spacing={2} sx={{ pt: 1 }}>
                                 <Link
                                     href="#"
@@ -123,7 +119,6 @@ export default function Footer() {
                         </Stack>
                     </Grid>
 
-                    {/* Разделитель для мобильной версии */}
                     <Grid
                         size={{ xs: 12 }}
                         sx={{
@@ -134,7 +129,6 @@ export default function Footer() {
                         <Divider sx={{ borderColor: "#2c3034" }} />
                     </Grid>
 
-                    {/* Вертикальный разделитель для десктопа */}
                     <Grid
                         size={{ md: 0.5 }}
                         sx={{
@@ -153,7 +147,6 @@ export default function Footer() {
                         />
                     </Grid>
 
-                    {/* Блок 2: Информация */}
                     <Grid size={{ xs: 12, md: 3.5 }}>
                         <Typography
                             variant="subtitle1"
@@ -213,7 +206,6 @@ export default function Footer() {
                         </Stack>
                     </Grid>
 
-                    {/* Блок 3: Центральный офис и склад */}
                     <Grid size={{ xs: 12, md: 4 }}>
                         <Typography
                             variant="subtitle1"
@@ -322,7 +314,6 @@ export default function Footer() {
                     </Grid>
                 </Grid>
 
-                {/* Нижняя линия и копирайт */}
                 <Box
                     sx={{
                         mt: { xs: 4, md: 6 },
@@ -331,7 +322,6 @@ export default function Footer() {
                         textAlign: { xs: "center", md: "left" },
                     }}
                 >
-                    {/* На десктопе копирайт под логотипом, поэтому на md сделаем отступ слева, чтобы выровнять по первому блоку */}
                     <Typography
                         variant="caption"
                         sx={{
