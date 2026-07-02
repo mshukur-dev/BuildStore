@@ -20,23 +20,13 @@ import LocalOfferIcon from "@mui/icons-material/LocalOfferOutlined";
 import CartIcon from "@mui/icons-material/ShoppingCartOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 
-export default function MobileBottomNav() {
+export default function MobileBottomNav({ cats }) {
     const [value, setValue] = useState(0);
     const [catalogOpen, setCatalogOpen] = useState(false);
     const navigate = useNavigate();
 
-    const categories = [
-        { title: "Теплоизоляция", path: "/catalog/teploizolyaciya" },
-        { title: "Листовой материал", path: "/catalog/listovoy-material" },
-        { title: "Кровля и водосток", path: "/catalog/krovlya" },
-        { title: "Заборы", path: "/catalog/zabory" },
-        { title: "Строительный Блок", path: "/catalog/bloki" },
-        { title: "Сухие смеси, профили", path: "/catalog/smesi" },
-        { title: "Мембраны", path: "/catalog/membrany" },
-    ];
-
     return (
-        <Box sx={{ display: { xs: "block", md: "none" } }}>
+        <Box sx={{ display: { xs: "block", md: "none" }, bgcolor: "#fff" }}>
             <Paper
                 sx={{
                     position: "fixed",
@@ -44,7 +34,11 @@ export default function MobileBottomNav() {
                     left: 0,
                     right: 0,
                     zIndex: 1000,
-                    borderTop: "1px solid #E5E7EB",
+                    bgcolor: "#fff",
+                    py: "10px",
+                    "& .MuiPaper-root": {
+                        bgcolor: "#000",
+                    },
                 }}
                 elevation={3}
             >
@@ -63,6 +57,7 @@ export default function MobileBottomNav() {
                         }
                     }}
                     sx={{
+                        bgcolor: "#fff",
                         "& .Mui-selected": { color: "#0A61DE !important" },
                     }}
                 >
@@ -101,13 +96,13 @@ export default function MobileBottomNav() {
                 onClose={() => setCatalogOpen(false)}
                 sx={{
                     "& .MuiPaper-root": {
-                        minHeight: "80vh",
+                        maxHeight: "80vh",
                         p: "16px 0",
                     },
                 }}
             >
                 <Container maxWidth={false}>
-                    <div className="flex items-center justify-between  pb-3 mb-2">
+                    <div className="flex items-center justify-between  pb-3 mb-2 sticky top-0 bg-white z-10">
                         <p className="font-bold text-[#0A61DE] text-[24px]">
                             Каталог товаров
                         </p>
@@ -120,18 +115,18 @@ export default function MobileBottomNav() {
                     </div>
 
                     <List disablePadding>
-                        {categories.map((cat) => (
-                            <React.Fragment key={cat.title}>
+                        {cats?.map((cat) => (
+                            <React.Fragment key={cat.id}>
                                 <ListItem
                                     button
                                     onClick={() => {
-                                        navigate(cat.path);
+                                        navigate(cat.slug);
                                         setCatalogOpen(false);
                                     }}
                                     sx={{ py: 1.5 }}
                                 >
                                     <ListItemText
-                                        primary={cat.title}
+                                        primary={cat.name}
                                         primaryTypographyProps={{
                                             fontSize: "16px",
                                             color: "#333333",

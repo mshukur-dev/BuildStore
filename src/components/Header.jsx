@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/icons/logo.png";
 import {
     Divider,
@@ -19,34 +19,32 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import GridViewIcon from "@mui/icons-material/GridView";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MobileBottomNav from "./MobileBottomNav.jsx";
+import { api } from "../api/axios.js";
 
 const Header = () => {
     const [burgerOpen, setBurgerOpen] = useState(false);
-
+    const [cats, setCats] = useState([]);
     const [anchorEl, setAnchorEl] = useState(null);
     const desktopCatalogOpen = Boolean(anchorEl);
 
     const navigate = useNavigate();
 
+    async function getCats() {
+        try {
+            const { data } = await api.get("catalogs");
+            console.log(data);
+            setCats(data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    useEffect(() => {
+        getCats();
+    }, []);
     const navLinks = [
         { title: "Доставка", path: "/delivery" },
         { title: "Оплата", path: "/payment" },
         { title: "Контакты", path: "/contacts" },
-    ];
-
-    const categories = [
-        { title: "Теплоизоляция", path: "/catalog/teploizolyaciya" },
-        { title: "Листовой материал", path: "/catalog/listovoy-material" },
-        { title: "Кровля и водосток", path: "/catalog/krovlya" },
-        { title: "Заборы", path: "/catalog/zabory" },
-        { title: "Строительный Блок", path: "/catalog/bloki" },
-        { title: "Сухие смеси, профили", path: "/catalog/smesi" },
-        { title: "Мембраны", path: "/catalog/membrany" },
-        { title: "Битумная продукция", path: "/catalog/bitum" },
-        { title: "Бетон, цемент", path: "/catalog/beton" },
-        { title: "Металлопрокат и стеклопластик", path: "/catalog/metall" },
-        { title: "Скобяные изделия", path: "/catalog/skobyanye" },
-        { title: "Сад и огород", path: "/catalog/sad" },
     ];
 
     const handleCatalogClick = (event) => {
@@ -174,10 +172,10 @@ const Header = () => {
                             },
                         }}
                     >
-                        {categories.map((cat) => (
+                        {cats.map((cat) => (
                             <MenuItem
-                                key={cat.title}
-                                onClick={() => handleCategorySelect(cat.path)}
+                                key={cat.name}
+                                onClick={() => handleCategorySelect(cat.slug)}
                                 sx={{
                                     py: "10px",
                                     px: "20px",
@@ -192,7 +190,7 @@ const Header = () => {
                                 }}
                             >
                                 <ListItemText
-                                    primary={cat.title}
+                                    primary={cat.name}
                                     primaryTypographyProps={{
                                         fontSize: "15px",
                                         fontWeight: 400,
@@ -271,7 +269,7 @@ const Header = () => {
                 </Container>
             </Drawer>
 
-            <MobileBottomNav />
+            <MobileBottomNav cats={cats} />
         </header>
     );
 };

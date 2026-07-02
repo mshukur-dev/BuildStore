@@ -17,7 +17,9 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import logo from "../assets/icons/logo_wh.png";
+import { NavLink, useNavigate } from "react-router";
 export default function Footer() {
+    const navigate = useNavigate();
     return (
         <Box
             component="footer"
@@ -160,49 +162,37 @@ export default function Footer() {
                         </Typography>
                         <Stack spacing={1.5}>
                             <Link
-                                href="#"
+                                onClick={() => navigate("/payment")}
                                 underline="none"
                                 sx={{
                                     color: "#C7C7C7",
                                     "&:hover": { color: "#ffffff" },
                                     fontSize: "1rem",
+                                    cursor: "pointer",
                                 }}
                             >
                                 Оплата
                             </Link>
                             <Link
-                                href="#"
+                                onClick={() => navigate("/delivery")}
                                 underline="none"
                                 sx={{
                                     color: "#C7C7C7",
                                     "&:hover": { color: "#ffffff" },
                                     fontSize: "1rem",
+                                    cursor: "pointer",
                                 }}
                             >
                                 Доставка
                             </Link>
-                            <Link
-                                href="#"
-                                underline="none"
-                                sx={{
-                                    color: "#C7C7C7",
-                                    "&:hover": { color: "#ffffff" },
-                                    fontSize: "1rem",
-                                }}
+                            <NavLink
+                                to={"/privacy-policy"}
+                                className={
+                                    "text-[#C7C7C7] hover:text-[#ffffff] text-[1rem] cursor-pointer animate-pulse"
+                                }
                             >
                                 Политика обработки персональных данных
-                            </Link>
-                            <Link
-                                href="#"
-                                underline="none"
-                                sx={{
-                                    color: "#C7C7C7",
-                                    "&:hover": { color: "#ffffff" },
-                                    fontSize: "1rem",
-                                }}
-                            >
-                                Согласие на обработку персональных данных
-                            </Link>
+                            </NavLink>
                         </Stack>
                     </Grid>
 

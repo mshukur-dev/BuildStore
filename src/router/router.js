@@ -4,3 +4,5 @@ export const Home = lazy(() => import("../pages/Home"));
 export const Contact = lazy(() => import("../pages/Contact"));
 export const Payment = lazy(() => import("../pages/Payment"));
 export const Delivery = lazy(() => import("../pages/Delivery"));
+export const PrivacyPolicy = lazy(() => import("../pages/PrivacyPolicy"));
+export const NotFound = lazy(() => import("../pages/NotFound"));
