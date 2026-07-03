@@ -19,7 +19,7 @@ export default function PaymentPage() {
     };
 
     const blockDescStyles = {
-        fontSize: "14px",
+        fontSize: "16px",
         fontWeight: 400,
         color: "#707070",
         lineHeight: 1.6,
@@ -38,7 +38,7 @@ export default function PaymentPage() {
             sx={{
                 maxWidth: "1620px",
                 px: { xs: 2, md: 4 },
-                py: { xs: 3, md: 6 },
+                py: { xs: 3, md: 10 },
                 backgroundColor: "#FFFFFF",
             }}
         >

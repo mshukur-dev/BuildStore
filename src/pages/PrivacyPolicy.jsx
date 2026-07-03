@@ -214,14 +214,14 @@ export default function PrivacyPolicy() {
                     dangerouslySetInnerHTML={{
                         __html: `
           .section-title {
-            font-size: 16px !important;
+            font-size: 20px !important;
             font-weight: 700 !important;
             color: #1E2126 !important;
             margin-bottom: 14px !important;
             letter-spacing: 0.3px;
           }
           .policy-text {
-            font-size: 15px !important;
+            font-size: 18px !important;
             font-weight: 400 !important;
             color: #707070 !important;
             line-height: 1.65 !important;

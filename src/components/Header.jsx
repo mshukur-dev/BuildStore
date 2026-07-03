@@ -204,7 +204,7 @@ const Header = () => {
                         <input
                             type="text"
                             placeholder="Поиск"
-                            className="w-full px-4 py-2 text-[15px] outline-none text-[#333]"
+                            className="w-full px-4 py-2 text-[20px] outline-none text-[#1E2126]"
                         />
                         <button className="bg-[#0A61DE] text-white px-5 h-full flex items-center justify-center hover:bg-[#084eb4] transition-colors">
                             <SearchIcon />
