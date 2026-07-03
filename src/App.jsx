@@ -18,6 +18,7 @@ import {
     NotFound,
     Payment,
     PrivacyPolicy,
+    ProductsFilter,
 } from "./router/router";
 import Layout from "./layout/Layout";
 import Login from "./pages/Login";
@@ -130,6 +131,16 @@ function App() {
                         <ProtectedRoute>
                             <Suspense fallback={loaderFallback}>
                                 <Cart />
+                            </Suspense>
+                        </ProtectedRoute>
+                    ),
+                },
+                {
+                    path: "/products-filter/:id",
+                    element: (
+                        <ProtectedRoute>
+                            <Suspense fallback={loaderFallback}>
+                                <ProductsFilter />
                             </Suspense>
                         </ProtectedRoute>
                     ),

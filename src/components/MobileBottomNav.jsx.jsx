@@ -20,7 +20,11 @@ import LocalOfferIcon from "@mui/icons-material/LocalOfferOutlined";
 import CartIcon from "@mui/icons-material/ShoppingCartOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 
-export default function MobileBottomNav({ cats, cartCount }) {
+export default function MobileBottomNav({
+    cats,
+    cartCount,
+    handleCategoryFilter,
+}) {
     const [value, setValue] = useState(0);
     const [catalogOpen, setCatalogOpen] = useState(false);
     const navigate = useNavigate();
@@ -123,15 +127,35 @@ export default function MobileBottomNav({ cats, cartCount }) {
                     </div>
 
                     <List disablePadding>
+                        <React.Fragment key="all">
+                            <ListItem
+                                button
+                                onClick={() => {
+                                    handleCategoryFilter("all");
+                                    setCatalogOpen(false);
+                                }}
+                                sx={{ py: 1.5, cursor: "pointer" }}
+                            >
+                                <ListItemText
+                                    primary="Все"
+                                    primaryTypographyProps={{
+                                        fontSize: "16px",
+                                        color: "#0A61DE",
+                                        fontWeight: 600,
+                                    }}
+                                />
+                            </ListItem>
+                            <Divider sx={{ borderColor: "#F3F4F6" }} />
+                        </React.Fragment>
                         {cats?.map((cat) => (
                             <React.Fragment key={cat.id}>
                                 <ListItem
                                     button
                                     onClick={() => {
-                                        navigate(cat.slug);
+                                        handleCategoryFilter(cat.id);
                                         setCatalogOpen(false);
                                     }}
-                                    sx={{ py: 1.5 }}
+                                    sx={{ py: 1.5, cursor: "pointer" }}
                                 >
                                     <ListItemText
                                         primary={cat.name}

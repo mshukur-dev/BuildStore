@@ -61,6 +61,10 @@ const Header = () => {
     const handleCatalogClose = () => {
         setAnchorEl(null);
     };
+    const handleCategoryFilter = (id) => {
+        navigate(`/products-filter/${id}`);
+        handleCatalogClose();
+    };
 
     const handleCategorySelect = (path) => {
         navigate(path);
@@ -113,10 +117,7 @@ const Header = () => {
                             <PhoneIcon
                                 sx={{ color: "#0A61DE", fontSize: "20px" }}
                             />
-                            <a
-                                href="tel:88005500109"
-                                className="font-bold text-[20px] text-[#333] hover:text-[#0A61DE] transition-colors"
-                            >
+                            <a className="font-bold text-[20px] text-[#333] hover:text-[#0A61DE] transition-colors cursor-pointer">
                                 8-800-550-01-09
                             </a>
                         </div>
@@ -215,10 +216,37 @@ const Header = () => {
                             },
                         }}
                     >
+                        <MenuItem
+                            key="all"
+                            onClick={() => {
+                                handleCategoryFilter("all");
+                            }}
+                            sx={{
+                                py: "10px",
+                                px: "20px",
+                                color: "#333333",
+                                fontSize: "15px",
+                                borderBottom: "1px solid #F1F5F9",
+                                "&:hover": {
+                                    backgroundColor: "#F1F5F9",
+                                    color: "#0A61DE",
+                                },
+                            }}
+                        >
+                            <ListItemText
+                                primary="Все"
+                                primaryTypographyProps={{
+                                    fontSize: "15px",
+                                    fontWeight: 600,
+                                }}
+                            />
+                        </MenuItem>
                         {cats.map((cat) => (
                             <MenuItem
                                 key={cat.name}
-                                onClick={() => handleCategorySelect(cat.slug)}
+                                onClick={(e) => {
+                                    handleCategoryFilter(cat.id);
+                                }}
                                 sx={{
                                     py: "10px",
                                     px: "20px",
@@ -342,7 +370,11 @@ const Header = () => {
                 </Container>
             </Drawer>
 
-            <MobileBottomNav cartCount={cartCount} cats={cats} />
+            <MobileBottomNav
+                handleCategoryFilter={handleCategoryFilter}
+                cartCount={cartCount}
+                cats={cats}
+            />
         </header>
     );
 };

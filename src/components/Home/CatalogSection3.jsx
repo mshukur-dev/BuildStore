@@ -5,13 +5,13 @@ import { api } from "../../api/axios";
 import { useNavigate } from "react-router";
 import Loader from "../Loader";
 
-export default function CatalogSection2() {
+export default function CatalogSection3() {
     const navigate = useNavigate();
     const [products, setProducts] = useState();
     const [loading, setLoading] = useState(true);
     async function getProducts() {
         try {
-            const { data } = await api.get(`products?catalogId=5`);
+            const { data } = await api.get(`products?catalogId=3`);
             setProducts(data.data);
         } catch (error) {
             console.log(error);
@@ -27,7 +27,7 @@ export default function CatalogSection2() {
             <div className=" max-w-[1620px] mx-auto">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-[50px] max-mb:text-[30px]">
-                        Строительный блок
+                        Кровля и водосток
                     </h2>
                     <Button
                         sx={{
@@ -38,7 +38,7 @@ export default function CatalogSection2() {
                             py: "10px",
                             fontSize: "20px",
                         }}
-                        onClick={() => navigate(`/products-filter/5`)}
+                        onClick={() => navigate(`/products-filter/3`)}
                     >
                         Смотреть все
                     </Button>

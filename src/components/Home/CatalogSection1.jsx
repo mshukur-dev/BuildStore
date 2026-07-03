@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 import ProductSwiper from "../ProductSwiper";
 import { Button } from "@mui/material";
 import { api } from "../../api/axios";
+import { useNavigate } from "react-router";
+import Loader from "../Loader";
 
 export default function CatalogSection1() {
+    const navigate = useNavigate();
     const [products, setProducts] = useState();
+    const [loading, setLoading] = useState(true);
     async function getProducts() {
         try {
             const { data } = await api.get(`products?catalogId=1`);
             setProducts(data.data);
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoading(false);
         }
     }
     useEffect(() => {
@@ -24,6 +30,7 @@ export default function CatalogSection1() {
                         Теплоизоляция
                     </h2>
                     <Button
+                        onClick={() => navigate(`/products-filter/1`)}
                         sx={{
                             display: { xs: "none", md: "block" },
                             bgcolor: "#167FFE",
@@ -36,7 +43,11 @@ export default function CatalogSection1() {
                         Смотреть все
                     </Button>
                 </div>
-                <ProductSwiper products={products} />
+                {loading ? (
+                    <Loader />
+                ) : (
+                    <ProductSwiper products={products} />
+                )}
                 <div className="flex justify-center items-center mt-6">
                     <Button
                         sx={{
