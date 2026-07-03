@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import logo from "../assets/icons/logo.png";
 import {
     Divider,
@@ -20,15 +20,21 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MobileBottomNav from "./MobileBottomNav.jsx";
 import { api } from "../api/axios.js";
+import { getProfile } from "../api/profile.js";
+import PersonIcon from "@mui/icons-material/Person";
+import { CartContext } from "../context/CartContext";
 
 const Header = () => {
     const [burgerOpen, setBurgerOpen] = useState(false);
     const [cats, setCats] = useState([]);
     const [anchorEl, setAnchorEl] = useState(null);
     const desktopCatalogOpen = Boolean(anchorEl);
-
+    const user = getProfile();
     const navigate = useNavigate();
-
+    
+    const { cart } = useContext(CartContext);
+    const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
     async function getCats() {
         try {
             const { data } = await api.get("catalogs");
@@ -120,9 +126,31 @@ const Header = () => {
                             <IconButton sx={{ color: "#0A61DE" }}>
                                 <Cart />
                             </IconButton>
-                            <span className="pointer-events-none bg-[#FF506F] absolute bottom-0 right-0 text-white w-[20px] h-[20px] text-[12px] rounded-[50%] flex items-center justify-center">
-                                30
+                            {cartCount > 0 && (
+                                <span className="pointer-events-none bg-[#FF506F] absolute bottom-0 right-0 text-white p-1 leading-[16px] text-[14px] rounded-[50%] min-w-[24px] text-center">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </div>
+                        <div className="flex items-end gap-2 max-mb:hidden">
+                            <PersonIcon
+                                sx={{ color: "#0A61DE", fontSize: "28px" }}
+                            />
+                            <span className="text-[#333] text-[18px] font-medium ">
+                                {user?.name?.split(" ")[0]}
                             </span>
+                            {user?.role == "admin" ? (
+                                <button
+                                    className="animate-pulse cursor-pointer text-[#0A61DE] text-[18px] hover:opacity-80 transition-opacity"
+                                    onClick={() => navigate("/dashboard")}
+                                >
+                                    Admin
+                                </button>
+                            ) : (
+                                <span className="text-[#333] text-[18px] font-medium ">
+                                    User
+                                </span>
+                            )}
                         </div>
                     </div>
 
@@ -266,10 +294,27 @@ const Header = () => {
                             8-800-550-01-09
                         </p>
                     </div>
+                    <div className="flex items-center gap-1 mt-8">
+                        <span className="text-[#333] text-[24px] font-medium ">
+                            {user?.name?.split(" ")[0]}
+                        </span>
+                        {user?.role == "admin" ? (
+                            <button
+                                className="animate-pulse cursor-pointer text-[#0A61DE] text-[24px] hover:opacity-80 transition-opacity"
+                                onClick={() => navigate("/dashboard")}
+                            >
+                                Admin
+                            </button>
+                        ) : (
+                            <span className="text-[#333] text-[18px] font-medium ">
+                                User
+                            </span>
+                        )}
+                    </div>
                 </Container>
             </Drawer>
 
-            <MobileBottomNav cats={cats} />
+            <MobileBottomNav cartCount={cartCount} cats={cats} />
         </header>
     );
 };

@@ -6,3 +6,5 @@ export const Payment = lazy(() => import("../pages/Payment"));
 export const Delivery = lazy(() => import("../pages/Delivery"));
 export const PrivacyPolicy = lazy(() => import("../pages/PrivacyPolicy"));
 export const NotFound = lazy(() => import("../pages/NotFound"));
+export const Login = lazy(() => import("../pages/Login"));
+export const Cart = lazy(() => import("../pages/Cart"));

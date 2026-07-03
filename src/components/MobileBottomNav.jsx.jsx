@@ -20,7 +20,7 @@ import LocalOfferIcon from "@mui/icons-material/LocalOfferOutlined";
 import CartIcon from "@mui/icons-material/ShoppingCartOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 
-export default function MobileBottomNav({ cats }) {
+export default function MobileBottomNav({ cats, cartCount }) {
     const [value, setValue] = useState(0);
     const [catalogOpen, setCatalogOpen] = useState(false);
     const navigate = useNavigate();
@@ -58,33 +58,41 @@ export default function MobileBottomNav({ cats }) {
                     }}
                     sx={{
                         bgcolor: "#fff",
+                        "& .MuiButtonBase-root": { color: "gray" },
                         "& .Mui-selected": { color: "#0A61DE !important" },
                     }}
                 >
                     <BottomNavigationAction
+                        sx={{ fontSize: "16px" }}
                         label="Главная"
-                        icon={<HomeIcon />}
+                        icon={<HomeIcon sx={{ fontSize: "26px" }} />}
                     />
                     <BottomNavigationAction
+                        sx={{ fontSize: "16px" }}
                         label="Доставка"
-                        icon={<LocalShippingIcon />}
+                        icon={<LocalShippingIcon sx={{ fontSize: "26px" }} />}
                     />
                     <BottomNavigationAction
+                        sx={{ fontSize: "16px" }}
                         label="Каталог"
-                        icon={<GridViewIcon />}
+                        icon={<GridViewIcon sx={{ fontSize: "26px" }} />}
                     />
                     <BottomNavigationAction
+                        sx={{ fontSize: "16px" }}
                         label="Спецпред."
-                        icon={<LocalOfferIcon />}
+                        icon={<LocalOfferIcon sx={{ fontSize: "26px" }} />}
                     />
                     <BottomNavigationAction
+                        sx={{ fontSize: "16px" }}
                         label="Корзина"
                         icon={
                             <div className="relative">
-                                <CartIcon />
-                                <span className="bg-[#FF506F] absolute -top-1 -right-2 text-white w-[22px] h-[22px] text-[12px] rounded-[50%] flex items-center justify-center">
-                                    30
-                                </span>
+                                <CartIcon sx={{ fontSize: "26px" }} />
+                                {cartCount > 0 && (
+                                    <span className="bg-[#FF506F] absolute -top-1 -right-2 text-white w-[22px] h-[22px] text-[12px] rounded-[50%] flex items-center justify-center">
+                                        {cartCount}
+                                    </span>
+                                )}
                             </div>
                         }
                     />

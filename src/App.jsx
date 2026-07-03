@@ -11,6 +11,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import {
+    Cart,
     Contact,
     Delivery,
     Home,
@@ -19,6 +20,10 @@ import {
     PrivacyPolicy,
 } from "./router/router";
 import Layout from "./layout/Layout";
+import Login from "./pages/Login";
+import { GuestRoute } from "./components/auth/GuestRoute";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute";
+import { CartProvider } from "./context/CartContext";
 
 const theme = createTheme({
     palette: {
@@ -72,59 +77,93 @@ function App() {
                 {
                     path: "/",
                     element: (
-                        <Suspense fallback={loaderFallback}>
-                            <Home />
-                        </Suspense>
+                        <ProtectedRoute>
+                            <Suspense fallback={loaderFallback}>
+                                <Home />
+                            </Suspense>
+                        </ProtectedRoute>
                     ),
                 },
                 {
                     path: "/contacts",
                     element: (
-                        <Suspense fallback={loaderFallback}>
-                            <Contact />
-                        </Suspense>
+                        <ProtectedRoute>
+                            <Suspense fallback={loaderFallback}>
+                                <Contact />
+                            </Suspense>
+                        </ProtectedRoute>
                     ),
                 },
                 {
                     path: "/delivery",
                     element: (
-                        <Suspense fallback={loaderFallback}>
-                            <Delivery />
-                        </Suspense>
+                        <ProtectedRoute>
+                            <Suspense fallback={loaderFallback}>
+                                <Delivery />
+                            </Suspense>
+                        </ProtectedRoute>
                     ),
                 },
                 {
                     path: "/payment",
                     element: (
-                        <Suspense fallback={loaderFallback}>
-                            <Payment />
-                        </Suspense>
+                        <ProtectedRoute>
+                            <Suspense fallback={loaderFallback}>
+                                <Payment />
+                            </Suspense>
+                        </ProtectedRoute>
                     ),
                 },
                 {
                     path: "/privacy-policy",
                     element: (
-                        <Suspense fallback={loaderFallback}>
-                            <PrivacyPolicy />
-                        </Suspense>
+                        <ProtectedRoute>
+                            <Suspense fallback={loaderFallback}>
+                                <PrivacyPolicy />
+                            </Suspense>
+                        </ProtectedRoute>
+                    ),
+                },
+                {
+                    path: "/cart",
+                    element: (
+                        <ProtectedRoute>
+                            <Suspense fallback={loaderFallback}>
+                                <Cart />
+                            </Suspense>
+                        </ProtectedRoute>
                     ),
                 },
                 {
                     path: "*",
                     element: (
-                        <Suspense fallback={loaderFallback}>
-                            <NotFound />
-                        </Suspense>
+                        <ProtectedRoute>
+                            <Suspense fallback={loaderFallback}>
+                                <NotFound />
+                            </Suspense>
+                        </ProtectedRoute>
                     ),
                 },
             ],
+        },
+        {
+            path: "/login",
+            element: (
+                <GuestRoute>
+                    <Suspense fallback={loaderFallback}>
+                        <Login />
+                    </Suspense>
+                </GuestRoute>
+            ),
         },
     ]);
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <RouterProvider router={router} />
+                <CartProvider>
+                    <RouterProvider router={router} />
+                </CartProvider>
             </ThemeProvider>
         </StyledEngineProvider>
     );
