@@ -6,13 +6,12 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ProductCard from "./ProductCard";
 
-// Импорт стилей Swiper напрямую в код сборщика
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export default function ProductSwiper({ products = [] }) {
-    const uniqueId = useId().replace(/:/g, ""); // убираем двоеточия, чтобы селектор был валидным
+    const uniqueId = useId().replace(/:/g, "");
     const prevBtnClass = `swiper-prev-btn-${uniqueId}`;
     const nextBtnClass = `swiper-next-btn-${uniqueId}`;
 
@@ -21,15 +20,13 @@ export default function ProductSwiper({ products = [] }) {
             sx={{
                 width: "100%",
                 position: "relative",
-                px: { xs: 0, md: 10 }, // Отступы для боковых стрелок на десктопе
-                // Глубокая кастомизация внутренних стилей Swiper через корневой sx-объект
+                px: { xs: 0, md: 10 },
                 "& .swiper": {
                     display: "flex",
-                    paddingY: 2, // Дополнительный паддинг, чтобы тень карточек при ховере не обрезалась
+                    paddingY: 2,
                 },
             }}
         >
-            {/* Кнопки навигации — кастомные MUI-компоненты привязываются по классам к Swiper */}
             <IconButton
                 className={prevBtnClass}
                 sx={{
@@ -72,7 +69,6 @@ export default function ProductSwiper({ products = [] }) {
                 <ArrowForwardIosIcon sx={{ fontSize: "18px" }} />
             </IconButton>
 
-            {/* Инициализация Swiper */}
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={20}

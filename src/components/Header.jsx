@@ -8,6 +8,7 @@ import {
     Menu,
     MenuItem,
     ListItemText,
+    Button,
 } from "@mui/material";
 import { NavLink, useNavigate } from "react-router";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -20,9 +21,10 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MobileBottomNav from "./MobileBottomNav.jsx";
 import { api } from "../api/axios.js";
-import { getProfile } from "../api/profile.js";
+import { getProfile, removeProfile } from "../api/profile.js";
 import PersonIcon from "@mui/icons-material/Person";
 import { CartContext } from "../context/CartContext";
+import { removeToken } from "../api/token.js";
 
 const Header = () => {
     const [burgerOpen, setBurgerOpen] = useState(false);
@@ -31,10 +33,10 @@ const Header = () => {
     const desktopCatalogOpen = Boolean(anchorEl);
     const user = getProfile();
     const navigate = useNavigate();
-    
+
     const { cart } = useContext(CartContext);
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
+
     async function getCats() {
         try {
             const { data } = await api.get("catalogs");
@@ -66,7 +68,7 @@ const Header = () => {
     };
 
     return (
-        <header className="bg-white shadow-sm w-full">
+        <header className="bg-white shadow-sm w-full sticky top-0 z-[100] shadow-xl">
             <div className="py-4 px-4 border-b border-[#F3F4F6] max-mb:py-3">
                 <div className="max-w-[1620px] mx-auto flex justify-between items-center gap-3">
                     <div className="flex items-center max-mb:items-end gap-[56px] max-mb:gap-[8px]">
@@ -151,6 +153,19 @@ const Header = () => {
                                     User
                                 </span>
                             )}
+                        </div>
+                        <div className="max-mb:hidden">
+                            <Button
+                                variant="outlined"
+                                color="error"
+                                onClick={() => {
+                                    removeToken();
+                                    removeProfile();
+                                    navigate("/login");
+                                }}
+                            >
+                                Logout
+                            </Button>
                         </div>
                     </div>
 
@@ -288,12 +303,6 @@ const Header = () => {
                             </NavLink>
                         ))}
                     </div>
-                    <div className="flex items-center gap-2 pt-15">
-                        <PhoneIcon sx={{ color: "#0A61DE" }} fontSize="small" />
-                        <p className="text-[18px] font-medium">
-                            8-800-550-01-09
-                        </p>
-                    </div>
                     <div className="flex items-center gap-1 mt-8">
                         <span className="text-[#333] text-[24px] font-medium ">
                             {user?.name?.split(" ")[0]}
@@ -310,6 +319,25 @@ const Header = () => {
                                 User
                             </span>
                         )}
+                    </div>
+                    <div className="mt-8 ">
+                        <Button
+                            variant="outlined"
+                            color="error"
+                            onClick={() => {
+                                removeToken();
+                                removeProfile();
+                                navigate("/login");
+                            }}
+                        >
+                            Logout
+                        </Button>
+                    </div>
+                    <div className="flex items-center gap-2 pt-15">
+                        <PhoneIcon sx={{ color: "#0A61DE" }} fontSize="small" />
+                        <p className="text-[20px] font-medium">
+                            8-800-550-01-09
+                        </p>
                     </div>
                 </Container>
             </Drawer>
