@@ -9,4 +9,4 @@ export const NotFound = lazy(() => import("../pages/NotFound"));
 export const Login = lazy(() => import("../pages/Login"));
 export const Cart = lazy(() => import("../pages/Cart"));
 export const ProductsFilter = lazy(() => import("../pages/ProductsFilter"));
-export const ProductsDetails = lazy(() => import("../pages/ProductDetails"));
+export const ProductDetails = lazy(() => import("../pages/ProductDetails"));

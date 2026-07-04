@@ -4,11 +4,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router";
 
 export default function ProductCard({ product }) {
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useContext(CartContext);
-
+    const navigate = useNavigate();
     const handleIncrement = () => setQuantity((prev) => prev + 1);
     const handleDecrement = () =>
         setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
@@ -19,7 +20,13 @@ export default function ProductCard({ product }) {
     };
 
     return (
-        <div className="h-[500px] flex flex-col gap-6 w-full max-w-[320px] mx-auto shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer bg-white">
+        <div
+            onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/product/${product?.id}`);
+            }}
+            className="h-[500px] flex flex-col gap-6 w-full max-w-[320px] mx-auto shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer bg-white"
+        >
             <div className="relative">
                 <img
                     className="w-full h-[220px] object-cover"
@@ -44,7 +51,10 @@ export default function ProductCard({ product }) {
                 </h2>
                 <div className="flex items-center justify-between">
                     <IconButton
-                        onClick={handleDecrement}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleDecrement();
+                        }}
                         sx={{
                             border: "1px solid #C7C7C7",
                             borderRadius: "0",
@@ -57,7 +67,10 @@ export default function ProductCard({ product }) {
                         {quantity}
                     </span>
                     <IconButton
-                        onClick={handleIncrement}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleIncrement();
+                        }}
                         sx={{
                             border: "1px solid #C7C7C7",
                             borderRadius: "0",
@@ -67,7 +80,10 @@ export default function ProductCard({ product }) {
                         <AddIcon sx={{ fontSize: "26px" }} />
                     </IconButton>
                     <IconButton
-                        onClick={handleAddToCart}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleAddToCart();
+                        }}
                         sx={{
                             borderRadius: "0",
                             bgcolor: "#1D6BDD",
