@@ -44,19 +44,19 @@ const Header = () => {
     const [debouncedSearchQuery] = useDebounce(searchQuery, 400); // задержка 400мс
     const searchRef = useRef(null);
 
-    // useEffect((e) => {
-    //     const handleClickOutside = (event) => {
-    //         if (
-    //             searchRef.current &&
-    //             !searchRef.current.contains(event.target)
-    //         ) {
-    //             setSearchFocused(false);
-    //         }
-    //     };
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () =>
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    // }, []);
+    useEffect((e) => {
+        const handleClickOutside = (event) => {
+            if (
+                searchRef.current &&
+                !searchRef.current.contains(event.target)
+            ) {
+                setSearchFocused(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () =>
+            document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     useEffect(() => {
         async function fetchSearchResults() {
@@ -114,8 +114,8 @@ const Header = () => {
                     <div
                         key={product.id}
                         className="flex items-center gap-4 p-3 hover:bg-[#F1F5F9] cursor-pointer border-b border-[#F1F5F9] transition-colors"
-                        onClick={(e) => {
-                            e.preventDefault();
+                        onMouseDown={(e) => {
+                            e.preventDefault(); 
                             navigate(`/product/${product.id}`);
                             setSearchFocused(false);
                             setSearchQuery("");
